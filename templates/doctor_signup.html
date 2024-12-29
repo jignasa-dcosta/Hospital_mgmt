@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}
+signup
+{% endblock title %}
+
+{% block content %}
+
+<!-- start banner -->
+<div class="plain-banner">
+    <div class="banner-background">
+        <h5 class="banner-title">Wide network of Healthcare Solutions</h5>
+    </div>
+</div>
+<!-- end banner -->
+
+<div class="container bg-white p-5 rounded shadow" style="max-width: 800px; margin-top: -160px">
+    <h2 class="text-center mb-4">Doctor Signup</h2>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+
+
+        <div class="mb-4">
+            {{ form.first_name.label_tag }}
+            {{ form.first_name }}
+        </div>
+
+        <div class="mb-4">
+            {{ form.last_name.label_tag }}
+            {{ form.last_name }}
+        </div>
+
+        <div class="mb-4">
+            {{ form.email.label_tag }}
+            {{ form.email }}
+        </div>
+
+        <div class="mb-4">
+            {{ form.contact_number.label_tag }}
+            {{ form.contact_number }}
+        </div>
+
+        <div class="mb-4">
+            {{ form.gender.label_tag }}
+            {{ form.gender }}
+        </div>
+
+        <div class="mb-4">
+            {{ form.role.label_tag }}
+            {{ form.role }}
+        </div>
+
+        <div class="mb-4">
+            {{ form.department.label_tag }}
+            {{ form.department }}
+        </div>
+
+        <div class="mb-4">
+            {{ form.fees.label_tag }}
+            {{ form.fees }}
+        </div>
+
+        <div class="mb-4">
+            {{ form.profile_picture.label_tag }}
+            {{ form.profile_picture }}
+        </div>
+
+        <div class="mb-4">
+            {{ form.password1.label_tag }}
+            {{ form.password1 }}
+        </div>
+
+        <div class="mb-4">
+            {{ form.password2.label_tag }}
+            {{ form.password2 }}
+        </div>
+
+        <button type="submit" class="btn btn-primary w-100">Sign Up</button>
+    </form>
+</div>
+
+
+
+{% endblock content %}

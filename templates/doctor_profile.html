@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}
+  Mangalya
+{% endblock title %}
+
+{% block content %}
+       
+            
+            {% if user.is_patient == True %}
+            <!-- Doctor Profile Section -->
+        <div class="row d-flex" style="margin: 80px 40px 0px;">
+          <div class="col-md-8 pe-5">
+              <!-- Doctor Information -->
+                  <div class="row border border-0">
+                    <div class="col-md-4 border border-0">
+                      <img src="{{ doctor.doctor_profile.profile_picture.url }}" class="img-fluid" alt="...">
+                    </div>
+                    <div class="col-md-8 border p-3">
+                      <div class="card-body">
+                        <h5 class="card-title">Dr. {{ doctor.first_name }} {{ doctor.last_name }} - {{ doctor.doctor_profile.role|capfirst }}</h5>
+                        <span class="fw-semibold" style="color: grey;">{{ doctor.doctor_profile.department.name|capfirst }}</span>
+                        <p class="fw-semibold mt-4">Description: {{ doctor.doctor_profile.description }}</p>
+                        
+                      </div>
+                    </div>
+                  </div>
+          </div>
+            <!-- Side Panel for Appointment Booking -->
+            <div class="col-md-4">
+                <div class="side-panel rounded shadow-sm p-4" style="background-color:rgb(243, 242, 242);">
+                    <h5 class="mb-2">Book an Appointment</h5>
+                    <form method="post" id="appointmentForm" action="{% url 'doctor_profile' doctor.id %}">
+                        {% csrf_token %}
+                        <input type="hidden" name="doctor" value="{{ doctor.id }}">
+                        
+                        <!-- Calendar -->
+                        <div class="form-group mb-4">
+                            <label for="date">Select Date</label>
+                            {{ form.date }}
+                        </div>
+                        
+                        <!-- Time Slots -->
+                        <div class="form-group mb-4">
+                            <label for="time">Select Time</label>
+                            {{ form.time }}
+                        </div>
+                        
+                        <!-- Book Appointment Button -->
+                        <button type="submit" class="btn btn-primary">Book Appointment</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        {% else %}
+        <!-- Doctor Profile Section -->
+        <div class="row d-flex" style="margin: 40px 40px 0px;">
+          <!-- <div class="col-md-8 pe-5"> -->
+              <!-- Doctor Information -->
+                  <div class="row ">
+                    <div class="col-auto border border-0">
+                      <img src="{{ doctor.doctor_profile.profile_picture.url }}" class="img-fluid" alt="..." style="height: 300px; width: auto;">
+                    </div>
+                    <div class="col border p-3">
+                      <div class="card-body">
+                        <h5 class="card-title">Dr. {{ doctor.first_name }} {{ doctor.last_name }} - {{ doctor.doctor_profile.role|capfirst }}</h5>
+                        <span class="fw-semibold" style="color: grey;">{{ doctor.doctor_profile.department.name|capfirst }}</span>
+                        <p class=" mt-4"><strong>Description:</strong> {{ doctor.doctor_profile.description }}</p>
+                        
+                      </div>
+                    </div>
+                  </div>
+            <!-- </div> -->
+        </div>
+        {% endif %}
+{% endblock content %}

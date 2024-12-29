@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}
+signin
+{% endblock title %}
+
+{% block content %}
+<!-- Start banner -->
+<div class="plain-banner">
+    <div class="banner-background">
+        <h5 class="banner-title">Sign In</h5>
+    </div>
+</div>
+<!-- End banner -->
+
+
+<form method="POST" action="{% url 'signin' %}">
+    {% csrf_token %}
+    <div class="container bg-white p-4 rounded shadow" style="max-width: 800px; margin-top: -160px;">
+        <h3>Sign in as:</h3>
+        <!-- Toggle Buttons for Doctor and Patient -->
+        {% comment %} <div class="mb-4 text-center">
+            <input type="radio" class="btn-check" name="userType" id="patient-toggle" autocomplete="off" {% if user_type == 'patient' %}checked{% endif %}>
+            <label class="btn btn-outline-primary me-2" for="patient-toggle">
+                <i class="fa-regular fa-user me-3"></i>Patient
+            </label>
+
+            <input type="radio" class="btn-check" name="userType" id="doctor-toggle" autocomplete="off" {% if user_type == 'doctor' %}checked{% endif %}>
+            <label class="btn btn-outline-primary" for="doctor-toggle">
+                <i class="fa-solid fa-stethoscope me-3"></i> Doctor
+            </label>
+        </div> {% endcomment %}
+
+        <div class="mb-4">
+            {{ form.email.label_tag }}
+            {{ form.email }}
+            {% for error in form.email.errors %}
+                <div class="text-danger small">{{ error }}</div>
+            {% endfor %}
+        </div>
+
+        <div class="mb-4">
+            {{ form.password.label_tag }}
+            {{ form.password }}
+            {% for error in form.password.errors %}
+                <div class="text-danger small">{{ error }}</div>
+            {% endfor %}
+        </div>
+
+        <button type="submit" class="btn btn-primary w-100">Sign In</button>
+    </div>
+</form>
+
+{% if messages %}
+        <ul>
+            {% for message in messages %}
+                <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+{% endblock content %} 
+

@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}
+  Mangalya
+{% endblock title %}
+
+{% block content %}
+<!-- start card -->
+
+<div class=" container py-4 ">
+    <!-- Filter Section -->
+  <div class="row row-cols-1 row-cols-md-3  justify-content" >
+    <div class="filter-container mx-3 ">
+      <label for="speciality-filter" class="form-label">Filter by Department:</label>
+            {{ form.department }}
+        </select>
+  </div>
+  </div>
+  
+  <div class="container py-4" style="margin: auto">
+    <div class="row justify-content">
+    {% for doctor in doctors %}
+    <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+      <a href="{% url 'doctor_profile' doctor.id %}" class="nav-link text-decoration-none">
+        <div class="our-team shadow-sm rounded" >
+          <div class="pic ">
+            <img src="{{ doctor.doctor_profile.profile_picture.url }}" alt="Dr. {{ doctor.first_name }} {{ doctor.last_name }}" class="object-fit-cover">
+          </div>
+          <div class="row">
+            <h3 class="Name text-start ps-4">Dr. {{ doctor.first_name }} {{ doctor.last_name }}</h3>
+          <div class="col ps-4 text-start">
+            <span class="dept " style="font-size: 16px; font-weight: 600; color: dimgrey;">{{doctor.doctor_profile.department}}</span><br>
+          <span class="role " style="font-size: 14px;">{{doctor.doctor_profile.role}}</span>
+          <p class="fees fw-semibold pt-2" style="color: #0097B2; font-size: 20px;"> <span style="color: dimgrey;;">Fee:</span> ₹{{doctor.doctor_profile.fees|floatformat:0}}/-</p>
+          </div>
+        </div>
+    </a>
+        <ul class="social d-flex justify-content-around">
+            <li class="social-list"><a href="#" class="fa fa-facebook"></a></li>
+            <li class="social-list"><a href="#" class="fa fa-twitter"></a></li>
+            <li class="social-list"><a href="#" class="fa fa-linkedin"></a></li>
+          </ul>
+        </div>
+    </div>
+    {% empty %}
+    <p class="text-center">No doctors available at the moment.</p>
+    {% endfor %}
+  </div>
+  </div>
+  </div>
+  <!-- end card -->
+{% endblock content %}

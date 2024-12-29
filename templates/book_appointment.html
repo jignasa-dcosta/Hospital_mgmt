@@ -1,0 +1,165 @@
+{% extends "patient_index.html" %}
+{% load static %}
+{% block title %}
+appointment
+{% endblock title %}
+
+{% block content %}
+
+ <!-- start banner -->
+<div class="plain-banner">
+    <div class="banner-background">
+        <h5 class="banner-title">Wide network of healthcare solutions</h5>
+    </div>
+ <!-- end banner -->
+
+<!-- Start Appointment Form -->
+ <div class="container" style= "display: flex;">
+<div class="form-container rounded shadow" style="margin: -160px auto 0px; max-width: 800px;">
+  <div class="row justify-content-center" style="margin-top: 40px;">
+    <div class="col-xxl-8 col-lg-12 flex-column text-center">
+        <div class="box-text ms-auto me-auto" style="font-size: 14px;">APPOINTMENT</div>
+        <h4 style="margin-bottom: 10px;">Consult with Our Experts</h4>
+    </div>
+  </div>
+
+  <form method="post" action="{% url 'book_appointment' %}">
+    {% csrf_token %}
+    {{ form.non_field_errors }}
+    <div class="row row-cols-1 g-3 justify-content-center" style="margin: 10px 40px;">
+      
+          <!-- Doctor Dropdown -->
+      <div class="col-xxl-12 col-lg-12">
+        <label for="id_doctor">{{ form.doctor.label_tag }}</label>
+            <select name="doctor" id="id_doctor" class="form-control rounded-0 form-select" required>
+                <option value="">Select Doctor</option>
+                {% for doctor in form.fields.doctor.queryset %}
+                    <option value="{{ doctor.id }}">
+                        Dr. {{ doctor.first_name }} {{ doctor.last_name }}
+                    </option>
+                {% endfor %}
+            </select>
+      </div>
+      
+      {% comment %} <!-- Specialization Dropdown (Updated on Reload) -->
+      <div class="col-xxl-6 col-lg-6">
+        {{ form.speciality.label_tag }}
+        {{ form.speciality }}
+    </div> {% endcomment %}
+
+      <!-- Date Input -->
+      <div class="col-xxl-6 col-lg-6">
+        {{ form.date.label_tag }}
+        {{ form.date }}
+      </div>
+
+      <!-- Time Slot Dropdown -->
+      <div class="col-xxl-6 col-lg-6">
+        {{ form.time.label_tag }}
+        {{ form.time }}
+      </div>
+
+      <!-- Submit Button -->
+        <button type="submit" class="btn btn-primary mt-5 mb-5 px-5">Book Appointment</button>
+    </div>
+  </form>
+</div>
+</div>
+<!-- End Appointment Form -->
+
+<!-- start FAQ section -->
+  <div class="d-flex" style="margin-top: 90px;">
+    <div class="row justify-content-center" style="margin: auto;">
+      <div class="col-lg-10 flex-column text-center">
+      <div class="box-text ms-auto me-auto" style="font-size: 14px;">FAQ</div>
+      <h4 style="margin-bottom: 25px;">Frequently Asked Questions</h4>
+    </div>
+    </div>
+   </div>
+
+   <div class="row" style="margin: 40px 100px;">
+    <div class="col-lg-6">
+   <div class="accordion" id="accordionPanelsStayOpenExample">
+    <div class="accordion-item">
+      <h2 class="accordion-header">
+        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+          Does a rinse or mouthwash help?
+        </button>
+      </h2>
+      <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show">
+        <div class="accordion-body">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed eiusmod tempor incididunt ut labore et dolore magna aliqua. Diam in arcu cursus euismod quis viverra.
+        </div>
+      </div>
+    </div>
+    <div class="accordion-item">
+      <h2 class="accordion-header">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
+          How can I fix my teeth and smile?
+        </button>
+      </h2>
+      <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse">
+        <div class="accordion-body">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed eiusmod tempor incididunt ut labore et dolore magna aliqua. Diam in arcu cursus euismod quis viverra.
+        </div>
+      </div>
+    </div>
+    <div class="accordion-item">
+      <h2 class="accordion-header">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
+          Why do I need dental exams?
+        </button>
+      </h2>
+      <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse">
+        <div class="accordion-body">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed eiusmod tempor incididunt ut labore et dolore magna aliqua. Diam in arcu cursus euismod quis viverra.
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
+
+  <div class="col-lg-6">
+    <div class="accordion" id="accordionPanelsStayOpenExample">
+     <div class="accordion-item">
+       <h2 class="accordion-header">
+         <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseFour" aria-expanded="true" aria-controls="panelsStayOpen-collapseFour">
+          Why do I need regular body check-up?
+         </button>
+       </h2>
+       <div id="panelsStayOpen-collapseFour" class="accordion-collapse collapse show">
+         <div class="accordion-body">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed eiusmod tempor incididunt ut labore et dolore magna aliqua. Diam in arcu cursus euismod quis viverra.
+         </div>
+       </div>
+     </div>
+     <div class="accordion-item">
+       <h2 class="accordion-header">
+         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseFive" aria-expanded="false" aria-controls="panelsStayOpen-collapseFive">
+          Are dental X-rays safe and needed?
+         </button>
+       </h2>
+       <div id="panelsStayOpen-collapseFive" class="accordion-collapse collapse">
+         <div class="accordion-body">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed eiusmod tempor incididunt ut labore et dolore magna aliqua. Diam in arcu cursus euismod quis viverra.
+         </div>
+       </div>
+     </div>
+     <div class="accordion-item">
+       <h2 class="accordion-header">
+         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseSix" aria-expanded="false" aria-controls="panelsStayOpen-collapseSix">
+          What are early signs of dental trouble?
+         </button>
+       </h2>
+       <div id="panelsStayOpen-collapseSix" class="accordion-collapse collapse">
+         <div class="accordion-body">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed eiusmod tempor incididunt ut labore et dolore magna aliqua. Diam in arcu cursus euismod quis viverra.
+         </div>
+       </div>
+     </div>
+     </div>
+   </div>
+  </div>
+  <!-- end FAQ section -->
+
+{% endblock content %}

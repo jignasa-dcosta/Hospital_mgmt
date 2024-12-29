@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}
+signup
+{% endblock title %}
+
+{% block content %}
+<!-- Start banner -->
+<div class="plain-banner">
+    <div class="banner-background">
+        <h5 class="banner-title">Sign Up</h5>
+    </div>
+</div>
+<!-- End banner -->
+<div class="container bg-white p-5 rounded shadow" style="max-width: 800px; margin-top: -160px">
+    <h2 class="text-center mb-4">Patient Signup</h2>
+    
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+           
+    
+            <div class="mb-4">
+                {{ form.first_name.label_tag }}
+                {{ form.first_name }}
+            </div>
+    
+            <div class="mb-4">
+                {{ form.last_name.label_tag }}
+                {{ form.last_name }}
+            </div>
+    
+            
+    
+            <div class="mb-4">
+                {{ form.contact.label_tag }}
+                {{ form.contact }}
+            </div>
+    
+            <div class="mb-4">
+                {{ form.gender.label_tag }}
+                {{ form.gender }}
+            </div>
+    
+            <div class="mb-4">
+                {{ form.date_of_birth.label_tag }}
+                {{ form.date_of_birth }}
+            </div>
+
+            <div class="mb-4">
+                {{ form.contact_number.label_tag }}
+                {{ form.contact_number }}
+            </div>
+
+            <div class="mb-4">
+                {{ form.email.label_tag }}
+                {{ form.email }}
+            </div>
+    
+            <div class="mb-4">
+                {{ form.password1.label_tag }}
+                {{ form.password1 }}
+            </div>
+    
+            <div class="mb-4">
+                {{ form.password2.label_tag }}
+                {{ form.password2 }}
+            </div>
+    
+            <button type="submit" class="btn btn-primary w-100">Sign Up</button>
+        </form>
+    </div>
+    
+    
+</div>
+
+
+{% endblock content %}

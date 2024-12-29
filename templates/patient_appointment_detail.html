@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}
+  Mangalya
+{% endblock title %}
+
+{% block content %}
+<div class="container mt-5">
+    <!-- Appointment Details Card -->
+    <div id="detailsCard" class="apt-card">
+        <div class="apt-card-header p-4 fs-5 text-center">Appointment Information</div>
+        <div class="card-body p-4">
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <p><strong>Doctor Name:</strong> Dr. {{ appointment.doctor.first_name }} {{ appointment.doctor.last_name }}</p>
+                </div>
+                <div class="col-md-6">
+                    <p><strong>Speciality:</strong> {{ appointment.speciality }}</p>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <p><strong>Appointment Date:</strong> {{ appointment.date }}</p>
+                </div>
+                <div class="col-md-6">
+                    <p><strong>Appointment Time:</strong> {{ appointment.time }}</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <p><strong>Fees Paid:</strong> {{ appointment_detail.fee_status }}</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Diagnosis and Prescription Details -->
+        <div class="card-body p-4">
+            <p><strong>Diagnosis:</strong> {{ appointment_detail.diagnosis }}</p>
+            <p><strong>Prescription:</strong> {{ appointment_detail.prescription }}</p>
+            <p><strong>Additional Notes:</strong> {{ appointment_detail.additional_notes }}</p>
+        </div>
+
+        <!-- Revisit Details -->
+        <div class="card-body p-4">
+            <p><strong>Revisit Required:</strong> {{ appointment_detail.revisit_required }}</p>
+            <p><strong>Next Appointment Date:</strong> {{ appointment_detail.revisit_date }}</p>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

@@ -1,0 +1,368 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script> 
+
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+    <!-- Logo Icon -->
+    <link rel="shortcut icon" href="{% static 'images/Logo/Logo-icon.svg' %}" type="image/x-icon">
+
+     <!-- Awesome fonts -->
+     <script
+     src="https://kit.fontawesome.com/4d8a7773d5.js"
+     crossorigin="anonymous"></script>
+
+    <title>{% block title %}
+      
+    {% endblock title %}
+
+    </title>
+    <style>
+        *{
+            font-family: "Inter", sans-serif;
+            font-size: 18px;
+        }
+
+        li{
+          display: inline-block;
+          padding: 10px 15px;
+        }
+
+
+    </style>
+</head>
+<body>
+<!----------------------------------- HEARDER ---------------------------------->
+{% block header %}
+  <!-- start top bar -->
+  <div id="top-bar" class="d-flex pt-2 ">
+    <div class="flex-fill pt-1" style="margin-left: 60px;">
+      <p class="text-light" style="font-size: 14px;">Welcome to Pharma. We provides medical accessories</p>
+    </div>
+
+    <div class="flex-shrink-1" style="margin-right: 20px;">
+      <img src="{% static 'images/icons/contact-phone-icon.svg' %}" style="width: 30px;" alt="">
+      <span class="text-light" style="font-size: 14px;">(404) 850 - 7080</span>
+      </div>
+
+      <div class="flex-shrink-1" style="margin-right: 60px;">
+      <img src="{% static 'images/icons/email-Icon.svg' %}" style="width: 30px;" alt="">
+      <span class="text-light" style="font-size: 14px;">mangalayaclinic@gmail.com</span>
+    </div>
+    
+  </div>
+  <!-- end top bar -->
+
+
+ {% if user.is_patient == True %}
+   <!--------------------------------------- start nav bar --------------------------------------------->
+ 
+<nav class="navbar navbar-expand-lg d-flex justify-content-between" style="margin:0px 30px">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="{% url 'index' %}">
+      <img src="{% static 'images/Logo/Logo-cropped.svg' %}" alt="Logo" width="172px">
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <!-- Nav menu list -->
+    <div class="collapse navbar-collapse justify-content-center" id="navbarScroll">
+      <ul class="navbar-nav my-2 my-lg-0 fs-5">
+        <!-- Home -->
+        <!-- <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="{% url 'index' %}">Home</a>
+        </li> -->
+        <!-- Dashboard -->
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'patient_dashboard' %}">Dashboard</a>
+        </li>
+        <!-- About -->
+        <li class="nav-item">
+          <a class="nav-link" href="#">About</a>
+        </li>
+        <!-- Doctors -->
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'doctor_list' %}">Doctors</a>
+        </li>
+        <!-- Contact Us -->
+        <li class="nav-item">
+          <a class="nav-link" href="#">Contact Us</a>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Buttons -->
+    <div>
+      <a href="{% url 'book_appointment' %}" class="btn btn-primary me-3">Book Appointment</a>
+      <!-- If user is authenticated -->
+      {% if user.is_authenticated %}
+        <div class="dropdown d-inline">
+          <button class="btn btn-outline-primary dropdown-toggle p-3" type="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="color: #0097B2; border-color: #0097B2; background-color: white; border-radius: 0px;">
+            {{ user.first_name }} {{ user.last_name }}
+          </button>
+          <ul class="dropdown-menu" aria-labelledby="userDropdown">
+            {% comment %} <li><a class="dropdown-item" href="#">Your Appointments</a></li> {% endcomment %}
+            <li><a class="dropdown-item" href="#">Profile</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="{% url 'signout' %}">Logout</a></li>
+          </ul>
+        </div>
+      {% else %}
+      
+        <a href="{% url 'signin' %}" class="link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover" style="color: #0097B2;">Login</a>
+      
+        <div class="btn-group">
+          <button class="btn btn-sm dropdown-toggle" data-bs-display="static" style="color: #0097B2;" type="button" id="registerDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+            Register
+          </button>
+          <ul class="dropdown-menu dropdown-menu-lg-end" aria-labelledby="registerDropdown">
+            <li><a class="dropdown-item" href="{% url 'patient_signup' %}?user_type=patient">Register as Patient</a></li>
+            <li><a class="dropdown-item" href="{% url 'doctor_signup' %}?user_type=doctor">Register as Doctor</a></li>
+          </ul>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</nav>
+
+ <!----------------------------------------- end nav bar -------------------------------------------->
+{% elif user.is_doctor == True %}
+    <!--------------------------------------- start nav bar --------------------------------------------->
+  <nav class="navbar navbar-expand-lg d-flex justify-content-between" style="margin:0px 30px">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="{% url 'index' %}">
+      <img src="{% static 'images/Logo/Logo-cropped.svg' %}" alt="Logo" width="172px">
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <!-- Nav menu list -->
+    <div class="collapse navbar-collapse justify-content-center" id="navbarScroll">
+      <ul class="navbar-nav my-2 my-lg-0 fs-5">
+        <!-- Home -->
+        <!-- <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="{% url 'index' %}">Home</a>
+        </li> -->
+        <!-- Dashboard -->
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'doctor_dashboard' %}">Dashboard</a>
+        </li>
+        <!-- About -->
+        <li class="nav-item">
+          <a class="nav-link" href="#">About</a>
+        </li>
+        <!-- Doctors -->
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'doctor_list' %}">Doctors</a>
+        </li>
+        <!-- Contact Us -->
+        <li class="nav-item">
+          <a class="nav-link" href="#">Contact Us</a>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Buttons -->
+    <div>
+      {% if user.user_type == 'patient' %}
+      <a href="#" class="btn btn-primary me-3">Book Appointment</a>
+      {% endif %}
+      <!-- If user is authenticated -->
+      {% if user.is_authenticated %}
+        <div class="dropdown d-inline">
+          <button class="btn btn-outline-primary dropdown-toggle p-3" type="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="color: #0097B2; border-color: #0097B2; background-color: white; border-radius: 0px;">
+            {{ user.first_name }} {{ user.last_name }}
+          </button>
+          <ul class="dropdown-menu" aria-labelledby="userDropdown">
+            <li><a class="dropdown-item" href="#">Profile</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="{% url 'signout' %}">Logout</a></li>
+          </ul>
+        </div>
+      {% else %}
+      
+        <a href="{% url 'signin' %}" class="link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover" style="color: #0097B2;">Login</a>
+      
+        <div class="dropdown d-inline">
+          <button class="btn dropdown-toggle"  data-bs-display="static" style="color: #0097B2;" type="button" id="registerDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+            Register
+          </button>
+          <ul class="dropdown-menu dropdown-menu-lg-end" aria-labelledby="registerDropdown">
+            <li><a class="dropdown-item" href="{% url 'patient_signup' %}?user_type=patient">Register as Patient</a></li>
+            <li><a class="dropdown-item" href="{% url 'doctor_signup' %}?user_type=doctor">Register as Doctor</a></li>
+          </ul>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</nav>
+
+ <!----------------------------------------- end nav bar -------------------------------------------->
+
+{% else %}
+
+      <!--------------------------------------- start nav bar --------------------------------------------->
+ 
+<nav class="navbar navbar-expand-lg d-flex justify-content-between" style="margin:0px 30px">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="{% url 'index' %}">
+      <img src="{% static 'images/Logo/Logo-cropped.svg' %}" alt="Logo" width="172px">
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <!-- Nav menu list -->
+    <div class="collapse navbar-collapse justify-content-center" id="navbarScroll">
+      <ul class="navbar-nav my-2 my-lg-0 fs-5">
+        <!-- Home -->
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="{% url 'index' %}">Home</a>
+        </li>
+        <!-- About -->
+        <li class="nav-item">
+          <a class="nav-link" href="#">About</a>
+        </li>
+        <!-- Doctors -->
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'doctor_list' %}">Doctors</a>
+        </li>
+        <!-- Contact Us -->
+        <li class="nav-item">
+          <a class="nav-link" href="#">Contact Us</a>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Buttons -->
+    <div>
+      {% if user.user_type == 'patient' %}
+      <a href="#" class="btn btn-primary me-3">Book Appointment</a>
+      {% endif %}
+      <!-- If user is authenticated -->
+      {% if user.is_authenticated %}
+        <div class="dropdown d-inline">
+          <button class="btn btn-outline-primary dropdown-toggle" type="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+            {{ user.first_name }} {{ user.last_name }}
+          </button>
+          <ul class="dropdown-menu" aria-labelledby="userDropdown">
+            {% if user.user_type == 'patient' %}
+            <li><a class="dropdown-item" href="#">Your Appointments</a></li>
+          {% elif user.user_type == 'doctor' %}
+            <li><a class="dropdown-item" href="#">Scheduled Appointments</a></li>
+          {% endif %}
+            <li><a class="dropdown-item" href="#">Profile</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="{% url 'signout' %}">Logout</a></li>
+          </ul>
+        </div>
+      {% else %}
+      
+        <a href="{% url 'signin' %}" class="link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover" style="color: #0097B2;">Login</a>
+      
+        <div class="dropdown d-inline">
+          <button class="btn dropdown-toggle"  data-bs-display="static" style="color: #0097B2;" type="button" id="registerDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+            Register
+          </button>
+          <ul class="dropdown-menu dropdown-menu-lg-end" aria-labelledby="registerDropdown">
+            <li><a class="dropdown-item" href="{% url 'patient_signup' %}?user_type=patient">Register as Patient</a></li>
+            <li><a class="dropdown-item" href="{% url 'doctor_signup' %}?user_type=doctor">Register as Doctor</a></li>
+          </ul>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</nav>
+
+ <!----------------------------------------- end nav bar -------------------------------------------->
+
+{% endif %}
+{% endblock header %}
+
+{% block content %}
+  
+{% endblock content %}
+
+{% block footer %}
+<!-- start footer -->
+<section class="footer-wrapper">
+  <div class="footer-container d-flex" style="margin: 10px 60px 60px; background-image: url('{% static "images/Footer-Background.png" %}')">
+  <div class="row d-flex" style="margin: 40px;">
+  
+
+    <div class="row align-items-center" style="margin-bottom: 32px;">
+      <div class="col-lg-4">
+        <a href="#"><img src="{% static 'images/Logo/Logo-cropped.svg' %}" class="footer-logo" alt=""></a>
+      </div>
+    
+      <div class="col-lg-6 d-flex justify-content-between">
+        <i class="contact-icons"><img src="{% static 'images/icons/blue-phone-icon.svg' %}"  alt=""> &nbsp;(+22) 123 - 4567 - 900</i>
+        <i class="contact-icons"><img src="{% static 'images/icons/envelop.svg' %}"  alt=""> &nbsp;support@mangalya.com</i>
+      </div>
+
+      <div class="col-lg-2 mt-3">
+        <div class="footer-social">
+        <ul>
+          <i class="fa-brands fa-instagram"></i>
+          <i class="fa-brands fa-facebook-f"></i>
+          <i class="fa-brands fa-twitter"></i>
+        </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="row d-flex justify-content-evenly">
+      <div class="col-6 col-lg-4 mb-3">
+        <h5>“A Simple Story About <br> The Doctorate Medical Center & Health Care Foundation"</h5>
+      </div>
+
+        <div class="col-6 col-lg-2 mb-3">
+          <h6>Explore</h6>
+          <div class="footer-list">
+            <a href="#">Home</a>
+            <a href="#">Services</a>
+            <a href="#">About Us</a>
+            <a href="#">Testimonials</a>
+            <a href="#">News</a>
+          </div>
+        </div>
+
+        <div class="col-6 col-lg-2 mb-3">
+          <h6>Uitility Pages</h6>
+          <div class="footer-list">
+            <a href="/">Style Guide</a>
+            <a href="#">Changelog</a>
+            <a href="#">Licenses</a>
+            <a href="#">Protected Page</a>
+            <a href="#">Trems & Conditions</a>
+          </div>
+        </div>
+
+      <div class="col-6 col-lg-4 mb-3">
+        <h6>Book an appointment</h6>
+        <p class="footer-email-input">It is a long established fact that a reader will be distracted</p>
+        <form style="margin-bottom: 15px;">
+          <input class="email-input" type="text" name="" id="" placeholder="Your email address">
+        </form>
+        <div class="btns-wrap">
+          <a href="#" class="btn btn-secondary me-2">Submit</a>
+        </div>
+      </div>
+      </div>
+    </div>
+    </div>
+  </div>
+</section>
+<!-- end footer section -->
+  
+{% endblock footer %}
+</body>
+</html>
