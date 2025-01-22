@@ -5,82 +5,130 @@
 {% endblock title %}
 
 {% block content %}
-    <div class="container py-5">
-        <!-- Page Header -->
-        <div class="text-center mb-4">
-            <h1 class="page-header">Your Appointment Details</h1>
+<div class="container py-5">
+    <!-- Appointment Details Card -->
+    <div id="detailsCard" class="card shadow">
+        <!-- Header -->
+        <div class="apt-p-card-header text-white text-center p-4">
+            <h5>Appointment Information</h5>
         </div>
 
-        <!-- Appointment Details Card -->
-        <div id="detailsCard" class="apt-card">
-            <div class="apt-card-header p-4 fs-5 text-center">Appointment Information</div>
-            <div class="card-body p-4">
-                <div class="row mb-3">
-                    <div class="col-md-6">
-                        <p><strong>Patient Name:</strong> <span id="doctorName">{{ appointment.patient.first_name }} {{ appointment.patient.last_name }}</span></p>
-                    </div>
-                    <div class="col-md-6">
-                        <p><strong>Email:</strong> <span id="speciality">{{ appointment.patient.email }}</span></p>
-                    </div>
-                    <div class="col-md-6">
-                        <p><strong>Age:</strong> <span id="speciality">Cardiologist</span></p>
-                    </div>
-                    <div class="col-md-6">
-                        <p><strong>Contact:</strong> <span id="speciality">{{ appointment.patient.patient_profile.contact_number }}</span></p>
-                    </div>
+        <!-- Patient and Appointment Information -->
+        <div class="card-body">
+            <h6 class="text-brand-color"><i class="bi bi-person-circle"></i> Patient Details</h6>
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <p><strong>Name:</strong> {{ appointment.patient.first_name }} {{ appointment.patient.last_name }}</p>
                 </div>
-                <div class="row mb-3">
-                    <div class="col-md-6">
-                        <p><strong>Appointment Date:</strong> <span id="appointmentDate">{{ appointment.date }}</span></p>
-                    </div>
-                    <div class="col-md-6">
-                        <p><strong>Appointment Time:</strong> <span id="appointmentTime">{{ appointment.time }}</span></p>
-                    </div>
-                    <div class="col-md-6">
-                        <p><strong>Appointment Status:</strong> <span id="appointmentTime">{{ appointment.status }}</span></p>
-                    </div>
+                <div class="col-md-6">
+                    <p><strong>Email:</strong> {{ appointment.patient.email }}</p>
+                </div>
+                <div class="col-md-6">
+                    <p><strong>Contact:</strong> {{ appointment.patient.patient_profile.contact_number }}</p>
                 </div>
             </div>
 
-            <!-- Diagnosis and Prescription Details -->
-    <div class="card-body p-4">
-        <form method="post">
-            {% csrf_token %}
-            {{ form.non_field_errors }}
-            <div class="mb-3">
-                {{ form.diagnosis.label_tag }}
-                {{ form.diagnosis }}
+            <h6 class="text-brand-color"><i class="bi bi-clock-fill"></i> Appointment Details</h6>
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <p><strong>Date:</strong> {{ appointment.date }}</p>
+                </div>
+                <div class="col-md-6">
+                    <p><strong>Time:</strong> {{ appointment.time }}</p>
+                </div>
+                <div class="col-md-6">
+                    <p><strong>Status:</strong> {{ appointment.status }}</p>
+                </div>
             </div>
-            <div class="mb-3">
-                {{ form.prescription.label_tag }}
-                {{ form.prescription }}
-            </div>
-            <div class="mb-3">
-                {{ form.fee_status.label_tag }}
-                {{ form.fee_status }}
-            </div>
-            <div class="mb-3">
-                {{ form.additional_notes.label_tag }}
-                {{ form.additional_notes }}
-            </div>
-            <div class="mb-3">
-                {{ form.revisit_required.label_tag }}
-                {{ form.revisit_required }}
-            </div>
-            <div class="mb-3">
-                {{ form.revisit_date.label_tag }}
-                {{ form.revisit_date }}
-            </div>
-            <button type="submit" class="btn btn-primary">Save Details</button>
-        </form>
+        </div>
+
+        <!-- Diagnosis and Prescription Details -->
+        <div class="card-body">
+            <form method="post">
+                {% csrf_token %}
+                {{ form.non_field_errors }}
+                
+                <!-- Diagnosis -->
+                <div class="mb-5">
+                    <label class="form-label text-brand-color"><i class="bi bi-heart-fill"></i> Diagnosis</label>
+                    {% if appointment.status == "Cancelled" %}
+                        <p class="form-control bg-light py-3">{{ form.diagnosis.value }}</p>
+                    {% else %}
+                        {{ form.diagnosis }}
+                    {% endif %}
+                </div>
+
+                <!-- Prescription -->
+                <div class="mb-5">
+                    <label class="form-label text-brand-color">
+                        <i class="bi bi-file-earmark-medical"></i> Prescription
+                    </label>
+                    {% if appointment.status == "Cancelled" %}
+                        <ul class="form-control bg-light py-3">
+                            {% for item in prescription_lines %}
+                                {% if item.strip %} <!-- Exclude empty lines -->
+                                    <li class="list-group-item">
+                                        <i class="bi bi-dash"></i> {{ item }}
+                                    </li>
+                                {% endif %}
+                            {% empty %}
+                                <li class="list-group-item text-muted">No prescription available.</li>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        {{ form.prescription }}
+                    {% endif %}
+                </div>
+
+                <!-- Fee Status -->
+                <div class="mb-5">
+                    <label class="form-label text-brand-color"><i class="bi bi-cash"></i> Fee Status</label>
+                    {% if appointment.status == "Cancelled" %}
+                        <p class="form-control bg-light py-3">{{ form.fee_status.value }}</p>
+                    {% else %}
+                        {{ form.fee_status }}
+                    {% endif %}
+                </div>
+
+                <!-- Additional Notes -->
+                <div class="mb-5">
+                    <label class="form-label text-brand-color"><i class="bi bi-pencil-square"></i> Additional Notes</label>
+                    {% if appointment.status == "Cancelled" %}
+                        <p class="form-control bg-light py-3">{{ form.additional_notes.value }}</p>                        
+                    {% else %}
+                        {{ form.additional_notes }}
+                    {% endif %}
+                </div>
+
+                <!-- Revisit Details -->
+                <div class="mb-5">
+                    <label class="form-label text-brand-color"><i class="bi bi-arrow-repeat"></i> Revisit Required</label>
+                    {% if appointment.status == "Cancelled" %}
+                        <p class="form-control bg-light py-3">{{ form.revisit_required.value }}</p>
+                    {% else %}
+                        {{ form.revisit_required }}
+                    {% endif %}
+                </div>
+                <div class="mb-5">
+                    <label class="form-label text-brand-color"><i class="bi bi-calendar3"></i> Next Appointment Date</label>
+                    {% if appointment.status == "Cancelled" %}
+                        <p class="form-control bg-light py-3">{{ form.revisit_date.value }}</p>
+                    {% else %}
+                        {{ form.revisit_date }}
+                    {% endif %}
+                </div>
+
+                <!-- Submit Button -->
+                {% if appointment.status != "Cancelled" %}
+                    <button type="submit" class="btn btn-primary w-100">
+                        Save Details
+                    </button>
+                {% endif %}
+            </form>
+        </div>
     </div>
-
-    <!-- Revisit Details -->
-    {% comment %} <div class="card-body p-4">
-        <p><strong>Revisit Required:</strong> {{ appointment_detail.revisit_required }}</p>
-        <p><strong>Next Appointment Date:</strong> {{ appointment_detail.revisit_date }}</p>
-    </div> {% endcomment %}
 </div>
+
             
 
 {% endblock content %}

@@ -7,27 +7,44 @@
 {% block content %}
 <div class="container">
         <!-- Page Header -->
-        <div class="text-center mb-4">
-            <h1 class="page-header">Scheduled Appointments</h1>
+        <div class="text-center mb-4 mt-5">
+            <h4 class="page-header">Scheduled Appointments</h4>
         </div>
 
+    <!-- Display Appointment Counts -->
+    <div class="mb-4">
+        <table class="table table-bordered table-sm appointment-table-count" style="width: 30%;">
+            <tbody>
+                <tr>
+                    <td class="text-start" style="font-weight: 400;">Scheduled Today</td>
+                    <td class="text-center" style="font-size: 1.2rem; color: #0097B2">{{ scheduled_count }}</td>
+                </tr>
+                <tr>
+                    <td class="text-start" style="font-weight: 400;">Cancelled Today</td>
+                    <td class="text-center" style="font-size: 1.2rem; color: #3e3e3e;">{{ cancelled_count }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+
         <!-- Appointments Table -->
-                <div class="table-responsive mb-4 mt-2">
-                    <table class="table align-middle table-sm table-hover">
-                        <thead class="table-primary">
-                            <tr class="">
-                                <th class="ps-3 py-3 fs-6">Appointment Date</th>
-                                <th class="ps-3 py-3 fs-6">Patient Name</th>
-                                <th class="ps-3 py-3 fs-6">Email</th>
-                                <th class="ps-3 py-3 fs-6">Phone</th>
-                                <th class="ps-3 py-3 fs-6">Time</th>
-                                <th class="ps-3 py-3 fs-6">Status</th>
-                                <th class="ps-3 py-3 fs-6">Action</th>
+                <!-- <div class="table-responsive mb-4 mt-2"> -->
+                    <table class="table table-responsive align-middle">
+                        <thead class="table-brand py-3">
+                            <tr>
+                                <th class="ps-3 py-3 fs-6" style="color: #0097B2;">Appointment Date</th>
+                                <th class="ps-3 py-3 fs-6" style="color: #0097B2;">Patient Name</th>
+                                <th class="ps-3 py-3 fs-6" style="color: #0097B2;">Email</th>
+                                <th class="ps-3 py-3 fs-6" style="color: #0097B2;">Phone</th>
+                                <th class="ps-3 py-3 fs-6" style="color: #0097B2;">Time</th>
+                                <th class="ps-3 py-3 fs-6" style="color: #0097B2;">Status</th>
+                                <th class="ps-3 py-3 fs-6" style="color: #0097B2;">Action</th>
                             </tr>
                         </thead>
                         <tbody>
                         {% for appointment in appointments %}
-                            <tr class="">
+                            <tr>
                                 <td class="py-3 fs-6 mt-3">{{ appointment.date }}</td>
                                 <td class="py-3 fs-6 mt-3">{{ appointment.patient.first_name }} {{ appointment.patient.last_name }}</td>
                                 <td class="py-3 fs-6 mt-3">{{ appointment.patient.email }}</td>
@@ -37,10 +54,10 @@
                                 
                                 <td class="p-3 fs-6">
                                     {% if appointment.status == 'Scheduled' %}
-                                    <a href="{% url 'cancel_appointment' appointment.id %}" class="btn btn-sm btn-danger mt-2">Cancel</a>
+                                    <a href="{% url 'cancel_appointment' appointment.id %}" class="btn btn-sm cancel-button">Cancel</a>
                                     {% endif %}
                                     <!-- <a href="#" class="btn btn-sm btn-warning mt-2">Reschedule</a> -->
-                                    <a href="{% url 'doctor_appointment_detail' appointment.id  %}" class="btn btn-sm btn-info mt-2">View Details</a>
+                                    <a href="{% url 'doctor_appointment_detail' appointment.id  %}" class="btn btn-sm btn-primary-sm">View Details</a>
                                 </td>
                             </tr>
                             {% empty %}
@@ -52,8 +69,8 @@
                         </tbody>
                     </table>
                 </div>
-
         </div>
+    </div>
             
 
 {% endblock content %}

@@ -123,7 +123,7 @@ class Appointment(models.Model):
 class AppointmentDetail(models.Model):
     appointment = models.OneToOneField(Appointment, on_delete=models.CASCADE, related_name='details')
     diagnosis = models.TextField()
-    prescription = models.TextField()
+    prescription = models.TextField(null=True, blank=True)
     fee_status = models.CharField(max_length=10, choices=[('', 'Select Status'),('Paid', 'Paid'), ('Unpaid', 'Unpaid')],)
     additional_notes = models.TextField(blank=True, null=True)
     revisit_required = models.CharField(max_length=10, choices=[('Yes', 'Yes'), ('No', 'No')],)

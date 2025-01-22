@@ -7,35 +7,35 @@
 {% block content %}
 <div class="container mt-4">
     <!-- Page Header -->
-    <div class="text-center mb-4">
-        <h1 class="page-header">Your Appointments</h1>
+    <div class="text-center mb-4 mt-5">
+        <h4 class="page-header">Your Appointments</h4>
     </div>
 <!-- Appointment History Table -->
-        <div class="table-responsive mb-4 mt-2">
-            <table class="table align-middle">
-                <thead class="table-primary">
-            <tr>
-                <th>Appointment Date</th>
-                <th>Doctor Name</th>
-                <th>Department</th>
-                <th>Appointment Time</th>
-                <th>Status</th>
-                <th>Action</th>
-            </tr>
+        <!-- <div class="table-responsive mb-4 mt-2"> -->
+            <table class="table table-responsive align-middle" >
+                <thead class="table-brand py-3">
+                    <tr>
+                        <th class="py-3" style="color: #0097B2;">Appointment Date</th>
+                        <th class="py-3" style="color: #0097B2;">Doctor Name</th>
+                        <th class="py-3" style="color: #0097B2;">Department</th>
+                        <th class="py-3" style="color: #0097B2;">Appointment Time</th>
+                        <th class="py-3" style="color: #0097B2;">Status</th>
+                        <th class="py-3" style="color: #0097B2;">Action</th>
+                    </tr>
         </thead>
-        <tbody>
+        <tbody class="table-group-divider">
             {% for appointment in appointments %}
             <tr>
-                <td>{{ appointment.date }}</td>
-                <td>Dr. {{ appointment.doctor.first_name }} {{ appointment.doctor.last_name }}</td>
-                <td>{{ appointment.doctor.doctor_profile.department.name }}</td>
-                <td>{{ appointment.time }}</td>
-                <td>{{ appointment.status }}</td>
-                <td>
+                <td class="py-3">{{ appointment.date }}</td>
+                <td class="py-3">Dr. {{ appointment.doctor.first_name }} {{ appointment.doctor.last_name }}</td>
+                <td class="py-3">{{ appointment.doctor.doctor_profile.department.name }}</td>
+                <td class="py-3">{{ appointment.time }}</td>
+                <td class="py-3">{{ appointment.status }}</td>
+                <td class="py-3">
                     {% if appointment.status == 'Scheduled' %}
-                    <a href="{% url 'cancel_appointment' appointment.id %}" class="btn btn-sm btn-danger">Cancel</a>
+                    <a href="{% url 'cancel_appointment' appointment.id %}" class="btn btn-sm cancel-button" >Cancel</a>
                     {% endif %}
-                    <a href="{% url 'patient_appointment_detail' appointment.id  %}" class="btn btn-sm btn-info">View Details</a>
+                    <a href="{% url 'patient_appointment_detail' appointment.id  %}" class="btn btn-sm btn-primary-sm">View Details</a>
                 </td>
                 
             </tr>
@@ -46,7 +46,7 @@
             {% endfor %}
         </tbody>
     </table>
-        </div>
+
 </div>
 
 {% endblock content %}

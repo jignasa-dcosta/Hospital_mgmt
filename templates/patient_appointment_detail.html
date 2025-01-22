@@ -6,46 +6,62 @@
 
 {% block content %}
 <div class="container mt-5">
-    <!-- Appointment Details Card -->
-    <div id="detailsCard" class="apt-card">
-        <div class="apt-card-header p-4 fs-5 text-center">Appointment Information</div>
-        <div class="card-body p-4">
-            <div class="row mb-3">
+    <!-- Appointment Details Section -->
+    <div id="detailsCard" class="card shadow-lg border-0 rounded-3">
+        <div class="apt-p-card-header text-white text-center p-4">
+            <h5><i class="bi bi-calendar-check"></i> Appointment Information</h5>
+        </div>
+        <div class="apt-p-card-body p-4">
+            <!-- Doctor Details -->
+            <div class="row mb-4">
                 <div class="col-md-6">
-                    <p><strong>Doctor Name:</strong> Dr. {{ appointment.doctor.first_name }} {{ appointment.doctor.last_name }}</p>
+                    <p><i class="bi bi-person-badge"></i> <strong>Doctor Name:</strong> Dr. {{ appointment.doctor.first_name }} {{ appointment.doctor.last_name }}</p>
                 </div>
                 <div class="col-md-6">
-                    <p><strong>Speciality:</strong> {{ appointment.speciality }}</p>
-                </div>
-            </div>
-            <div class="row mb-3">
-                <div class="col-md-6">
-                    <p><strong>Appointment Date:</strong> {{ appointment.date }}</p>
-                </div>
-                <div class="col-md-6">
-                    <p><strong>Appointment Time:</strong> {{ appointment.time }}</p>
+                    <p><i class="bi bi-hospital"></i> <strong>Speciality:</strong> {{ appointment.speciality }}</p>
                 </div>
             </div>
+            <!-- Appointment Timing -->
+            <div class="row mb-4">
+                <div class="col-md-6">
+                    <p><i class="bi bi-calendar-event"></i> <strong>Appointment Date:</strong> {{ appointment.date }}</p>
+                </div>
+                <div class="col-md-6">
+                    <p><i class="bi bi-clock"></i> <strong>Appointment Time:</strong> {{ appointment.time }}</p>
+                </div>
+            </div>
+            <!-- Fee Details -->
             <div class="row">
                 <div class="col-md-6">
-                    <p><strong>Fees Paid:</strong> {{ appointment_detail.fee_status }}</p>
+                    <p><i class="bi bi-cash-stack"></i> <strong>Fees Paid:</strong> {{ appointment_detail.fee_status }}</p>
                 </div>
             </div>
         </div>
 
-        <!-- Diagnosis and Prescription Details -->
-        <div class="card-body p-4">
+        <!-- Diagnosis and Prescription -->
+        <div class="apt-p-card-body border-top p-4">
+            <h6 class="text-brand-color mb-4"><i class="bi bi-file-earmark-medical"></i> Diagnosis & Prescription</h6>
             <p><strong>Diagnosis:</strong> {{ appointment_detail.diagnosis }}</p>
-            <p><strong>Prescription:</strong> {{ appointment_detail.prescription }}</p>
+            
+            <ul class="list-group mb-3 ">
+            <p class="mb-0"><strong>Prescription:</strong></p>
+                {% for item in appointment_detail.prescription.splitlines %}
+                    <li class=""><i class="bi bi-dash"></i> {{ item }}</li>
+                {% empty %}
+                    <li class=" text-muted">No prescription available.</li>
+                {% endfor %}
+            </ul>
             <p><strong>Additional Notes:</strong> {{ appointment_detail.additional_notes }}</p>
         </div>
 
         <!-- Revisit Details -->
-        <div class="card-body p-4">
+        <div class="card-body border-top p-4">
+            <h6 class="text-brand-color mb-4"><i class="bi bi-arrow-repeat"></i> Revisit Details</h6>
             <p><strong>Revisit Required:</strong> {{ appointment_detail.revisit_required }}</p>
             <p><strong>Next Appointment Date:</strong> {{ appointment_detail.revisit_date }}</p>
         </div>
     </div>
 </div>
+
 
 {% endblock content %}

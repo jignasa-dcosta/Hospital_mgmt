@@ -1,3 +1,4 @@
+from datetime import date, timezone
 from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.auth import login,logout,authenticate
 from django.contrib.auth.decorators import login_required
@@ -14,13 +15,16 @@ def index(request):
 def patient_index(request):
     return render(request,"patient_index.html")
 
+def contact(request):
+    return render(request,"contact.html")
+
 def patient_signup(request):
     if request.method == 'POST':
         form = PatientSignUpForm(request.POST)
         if form.is_valid():
             user = form.save(commit=False)
             user.is_patient = True
-            user.username = user.email  # Ensure username is set to email or another unique value
+            user.username = user.email  
             user.save()
             # Create PatientProfile instance
             PatientProfile.objects.create(
@@ -31,9 +35,9 @@ def patient_signup(request):
             )
             # Log the user in and redirect
             login(request, user)
-            return redirect('signin')  # Redirect to patient dashboard
+            return redirect('signin') 
         else:
-            messages.error(request, form.errors)  # Display validation errors using Django messages framework
+            messages.error(request, form.errors)  
             error = "Something went wrong"
             return render(request,'patient_signup.html',{'error':error,'form':form})
     else:
@@ -46,7 +50,7 @@ def doctor_signup(request):
         if form.is_valid():
             user = form.save(commit=False)
             user.is_doctor = True
-            user.username = user.email  # Ensure username is set to email or another unique value
+            user.username = user.email 
             user.save()
             # Create DoctorProfile instance
             DoctorProfile.objects.create(
@@ -59,9 +63,9 @@ def doctor_signup(request):
                 profile_picture=form.cleaned_data.get('profile_picture', None),
             )
             login(request, user)
-            return redirect('signin')  # Redirect to doctor dashboard
+            return redirect('signin')  
         else:
-            messages.error(request, form.errors)  # Display validation errors using Django messages framework
+            messages.error(request, form.errors) 
             error = "Something went wrong"
             return render(request, 'doctor_signup.html', {'error': error, 'form': form})
     else:
@@ -74,21 +78,17 @@ def signin(request):
         if form.is_valid():
             email = form.cleaned_data.get('email')
             password = form.cleaned_data.get('password')
-            # Authenticate using the email (mapped as username)
             user = authenticate(username=email, password=password)
             
             if user is not None:
-                # Log in the user
                 login(request, user)
-                # return redirect('index')  # Redirect to patient index page 
 
                 # Redirect based on user type
                 if user.is_doctor:
-                    return redirect('doctor_dashboard')  # Replace with your doctor's dashboard URL
+                    return redirect('doctor_dashboard')
                 elif user.is_patient:
-                    return redirect('patient_dashboard')  # Replace with your patient's dashboard URL
+                    return redirect('patient_dashboard') 
                 else:
-                    messages.error(request, "User role is not assigned.")
                     return redirect('signin')
             else:
                 # Add error if authentication fails
@@ -106,8 +106,18 @@ def patient_dashboard(request):
 
 @login_required
 def doctor_dashboard(request):
+    # Get today's date
+    today = date.today()
+
+    # Get the counts for scheduled and cancelled appointments today
+    scheduled_count = Appointment.objects.filter(date=today, status='Scheduled').count()
+    cancelled_count = Appointment.objects.filter(date=today, status='Cancelled').count()
     appointments = Appointment.objects.filter(doctor=request.user)
-    return render(request, 'doctor_dashboard.html', {'appointments': appointments})
+    return render(request, 'doctor_dashboard.html', {
+        'appointments': appointments,
+        'scheduled_count': scheduled_count,
+        'cancelled_count': cancelled_count,
+    })
 
 
 def signout(request):
@@ -121,9 +131,7 @@ def book_appointment(request,):
         form = AppointmentForm(request.POST)
         if form.is_valid():
             appointment = form.save(commit=False)
-            appointment.patient = request.user
-            # Auto-fill the speciality based on the selected doctor
-            
+            appointment.patient = request.user            
             appointment.save()
             return redirect('patient_dashboard')  
     else:
@@ -134,16 +142,27 @@ def book_appointment(request,):
 
 @login_required
 def appointment_history(request):
-    print(f"Current User: {request.user}")  # Debugging line
-    # Fetch all appointments for the logged-in patient
-    appointments = Appointment.objects.filter(patient=request.user.id).order_by('-date', '-time')
+    # Get today's date
+    today = date.today()
 
-    print(f"Appointments Found: {appointments}")  # Debugging line
-    print(request.session.items()) # Debugging line
+    # Get the counts for scheduled and cancelled appointments today
+    scheduled_count = Appointment.objects.filter(date=today, status='Scheduled').count()
+    cancelled_count = Appointment.objects.filter(date=today, status='Cancelled').count()
 
-    return render(request, 'patient_dashboard.html', {
-        'appointments': appointments
-    })
+    if request.user.is_doctor:
+        appointments = Appointment.objects.filter(doctor=request.user).order_by('-date', '-time')
+        return render(request, 'doctor_dashboard.html', {
+            'appointments': appointments,
+            'scheduled_count': scheduled_count,
+            'cancelled_count': cancelled_count,
+        })
+    elif request.user.is_patient:
+        appointments = Appointment.objects.filter(patient=request.user).order_by('-date', '-time')
+        return render(request, 'patient_dashboard.html', {
+            'appointments': appointments
+        })
+    else:
+        return redirect('index') 
 
 
 @login_required
@@ -165,50 +184,28 @@ def cancel_appointment(request, appointment_id):
 
     return redirect('appointment_history')
 
-# @login_required
-# def doctor_appointment_detail(request, pid):
-#     appointment = get_object_or_404(Appointment, id=pid)
 
-#     if request.method == 'POST':
-#         form = AppointmentDetailForm(request.POST)
-#         if form.is_valid():
-#             appointment_detail = form.save(commit=False)
-#             appointment_detail.appointment = appointment
-#             appointment_detail.save()
-#             AppointmentDetail.objects.create(
-#                 appointment=appointment,
-#                 diagnosis=form.cleaned_data['diagnosis'],
-#                 prescription=form.cleaned_data['prescription'],
-#                 fee_status=form.cleaned_data['fee_status'],
-#                 additional_notes=form.cleaned_data['additional_notes'],
-#                 revisit_required=form.cleaned_data['revisit_required'],
-#                 revisit_date=form.cleaned_data['revisit_date'],
-#             )
-#             return redirect('doctor_dashboard')  # Redirect to appointment history or another appropriate page
-#     else:
-#         form = AppointmentDetailForm()
-
-#     return render(request, 'doctor_appointment_detail.html', {
-#         'form': form,
-#         'appointment': appointment,
-#     })
 
 @login_required
 def doctor_appointment_detail(request, pid):
     appointment = get_object_or_404(Appointment, id=pid)
     appointment_detail, created = AppointmentDetail.objects.get_or_create(appointment=appointment)
 
+    # Split the prescription into a list of lines
+    prescription_lines = appointment_detail.prescription.splitlines() if appointment_detail.prescription else []
+
     if request.method == 'POST':
         form = AppointmentDetailForm(request.POST, instance=appointment_detail)
         if form.is_valid():
             form.save()
-            return redirect('doctor_dashboard')  # Redirect to doctor dashboard or another appropriate page
+            return redirect('doctor_dashboard')  
     else:
         form = AppointmentDetailForm(instance=appointment_detail)
 
     return render(request, 'doctor_appointment_detail.html', {
         'form': form,
         'appointment': appointment,
+        'prescription_lines': prescription_lines,
     })
 
 @login_required
@@ -238,7 +235,7 @@ def doctor_list(request):
     })
 
 
-@login_required
+
 def doctor_profile(request, doctor_id):
     doctor = get_object_or_404(CustomUser, id=doctor_id, is_doctor=True)
     form = AppointmentForm(initial={'doctor': doctor})
@@ -249,7 +246,7 @@ def doctor_profile(request, doctor_id):
                 appointment.patient = request.user
                 appointment.doctor = doctor
                 appointment.save()
-                return redirect('patient_dashboard')  # Redirect to patient dashboard or another appropriate page
+                return redirect('patient_dashboard')  
 
     return render(request, 'doctor_profile.html', {
         'doctor': doctor,

@@ -1,454 +1,580 @@
-.btn-primary{
-    background-color: #0097B2;
-    color: #ffffff;
-    border-style: none;
-    border-radius: 0px;
-    padding: 16px 15px;
-    width: fit-content;
-  }
-
-.button-outlined{
-  border: 1px slid #0097B2;
+body{
+background-color:#f7fcff;
 }
 
+.nav-link.active {
+  color: #0097B2 !important; 
+  font-weight: 400; 
+  border-bottom: 2px solid #0097B2; 
+}
+
+.btn-primary{
+  background-color: #0097B2;
+  color: #ffffff;
+  border-style: none;
+  border-radius: 0px;
+  padding: 16px 15px;
+  width: fit-content;
+}
+
+.btn-primary-sm{
+  background-color: #0097B2;
+  color: #ffffff;
+  border-style: none;
+  border-radius: 0px;
+  padding: 8px 20px;
+  width: fit-content;
+}
+
+.btn-primary-sm:hover{
+  background-color: #007185;
+  color: #ffffff;
+}
+
+.cancel-button{
+  background-color: #b20600;
+  color: #ffffff;
+  border-style: none;
+  border-radius: 0px;
+  padding: 8px 20px;
+  width: fit-content;
+}
+
+.cancel-button:hover{
+  background-color: #8a0400;
+  color: #ffffff;
+}
+
+.text-brand-color{
+  color: #0097B2;
+}
+
+.button-outlined{
+border: 1px slid #0097B2;
+}
+
+
+.btn-primary.active{
+  color: #0152A8 !important;
+}
+
+.card{
+  margin: 10px 85px !important;
+}
+
+.service-box{
+  min-height: 300px;
+  background-color: #ffffff;
+  box-shadow: #5454541e 0px 1px 10px 0px;
+}
+
+.service-img{
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+  object-position: center;
+}
+
+
   
-  .btn-primary.active{
-    color: #0152A8 !important;
-  }
-  
-  .card{
-    margin: 10px 85px !important;
-  }
-  
-  
-  #blue-type{
-    background-color: #0097B2;
-    letter-spacing: 8px;
-    padding: 1px 10px;
-    font-size: 16px;
-    width: fit-content;
-    color: white;
-    margin-bottom: 14px;
-  }
-  
-  .btn-secondary{
-    background-color: #0152A8;
-    color: #ffffff;
-    border-style: none;
-    border-radius: 0px;
-    padding: 17px 41px;
-    width: fit-content;
-  }
-  
-  #top-text{
-    font-size: 14px;
-    color: white;
-  }
-  
-  #top-bar{
-    background-color: #0152A8;
-  }
-  
-  h4{
-    font-family: "Montserrat", sans-serif;
-    font-size: 30px;
-    font-weight: 600;
-    margin-bottom: 25px;
-  }
-  
-  h5{
-    font-family: "Montserrat", sans-serif;
-    font-size: 24px;
-    font-weight: 600;
-  }
-  
-  h6{
-    font-family: "Montserrat", sans-serif;
-    font-size: 18px;
-    font-weight: 600;
-  }
-  
-  .box-text{
-    font-family: "lato", sans-serif;
-    letter-spacing: 6px;
-    border: solid #CECECE;
-    border-width: 0.5px;
-    padding: 0px 18px;
-    width: max-content;
-    margin-bottom: 20px;
-  }
-  
-  .Read-more-btn{
-    font-weight: 500;
-    background-color: transparent;
-    border: 0px;
-    font-size: 16px;
-    padding: 0px;
-  }
-  
-  .card-service {
-    border: none;
-    border-radius: 10px;
-    padding: 20px 30px;
-    background-color: #f1f1f1;
-    border-radius: 0px;
-  }
-  
-  .bg-grey{
-    background-color: #f1f1f1;
-  }
-  
-  .icon-image{
-    width: 36px;
-    height: 36px;
-    margin-bottom: 18px;
-  }
-  
-  .card-title{
-    font-family: "Montserrat", sans-serif;
-    font-style: normal;
-    line-height: 114%;
-    font-size: 20px;
-    font-weight: 600;
-    color: #1C1C1C;
-    margin-bottom: 10px;
-  }
-  
-  .card-text{
-    font-family: "lato", sans-serif;
-    font-size: 16px;
-    color: #545454;
-    line-height: 140%;
-    margin-bottom: 11px;
-  }
-  
-  /* Client Review Section */
-  #testimonials{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    width:100%;
-  }
-  
-  .testimonial-box-container{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-    width:100%;
-  }
-  .testimonial-box{
-    width:500px;
-    box-shadow: 2px 2px 10px rgba(0,0,0,0.1);
-    background-color: #f1f1f1;
-    padding: 20px;
-    margin: 15px;
-    cursor: pointer;
-  }
-  .profile-img{
-    width:50px;
-    height: 50px;
-    border-radius: 50%;
-    overflow: hidden;
-    margin-right: 10px;
-  }
-  .profile-img img{
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center;
-  }
-  .profile{
-    display: flex;
-    align-items: center;
-  }
-  .name-user{
-    display: flex;
-    flex-direction: column;
-  }
-  .name-user strong{
-    color: #1C1C1C;
-    font-family: "Montserrat", sans-serif;
-    font-size: 20px;
-    font-weight: 600;
-    line-height: 114%;
-  }
-  .name-user span{
-    color: #979797;
-    font-size: 0.8rem;
-  }
-  
-  .reviews{
-    color: #f9d71c;
-  }
-  
-  .box-top{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-  }
-  .client-comment p{
-    font-family: "Lato", sans-serif;
-    font-size: 16px;
-    font-weight: 400;
-    line-height: 142%;
-    color: #545454;
-  }
-  .testimonial-box:hover{
-    transform: translateY(-10px);
-    transition: all ease 0.3s;
-  }
-  
-  /* Team */
-  .team-container {
-    background: #0152A8;
-    padding: 120px;
-    width: 100%vw;
-    margin-top: 90px;
-  }
-  
-  .our-team {
-    padding: 16px;
-    background: #fff;
-    border-radius: 8px;
-    text-align: center;
-    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
-  }
-  .our-team .pic {
-    display: inline-block;
-    width: 100%;
-    height: 100%;
-    background: #fff;
-    padding: 12px;
-    margin-bottom: 20px;
-  }
-  .pic img {
-    width: 100%;
-    height: auto;
-    
-  }
-  .our-team .Name {
-    display: block;
-    font-size: 20px;
-    font-weight: 600;
-    color: #303030;
-    margin: 0 0 5px 0;
-  }
-  .our-team .post {
-    display: block;
-    font-size: 16px;
-    color: #303030;
-    margin-bottom: 22px;
-  }
-  .our-team .social{
-    padding: 0;
-    margin: 0;
-    list-style: none;
-  }
-  .our-team .social .social-list{
-    display: inline-block;
-    margin-right: 15px;
-    padding: 0;
-  }
-   .social-list .fa {
-    display: block;
-    width: 32px;
-    height: 32px;
-    line-height: 34px;
-    border-radius: 50%;
-    font-size: 18px;
-    text-decoration: none;
-    color: #004A99;
-    border: 1px solid #004A99;
-    transition: all 0.5s ease 0s;
-  }
-  
-  .social .social-list .fa:hover {
-    background-color: #025784 !important;
-    color: white;
-    border: none;
-    text-decoration: none;
-  }
-  
-  .footer-logo{
-    width: 200px;
-  }
-  
-  .footer-wrapper{
-    display: flex;
-    margin-top: 120px;
-  }
-  
-  .footer-container{
-    margin: 100px;
-    /* background-image: url('{% static "images/Footer-Background.png" %}') no-repeat; */
-    background-size: cover;
-    background-position: center;
-    height: 400px;
-  }
-  
-  .contact-icon{
-    margin-left: 20px;
-    text-align: center;
-  }
-  
-  .footer-list a{
-    color: #545454;
-    text-align: start;
-    text-decoration: none;
-    padding: 0;
-    font-family: "Lato", sans-serif;
-    font-size: 14px;
-    font-weight: 400;
-  }
-  
-  .footer-list{
-    display: flex;
-    flex-direction: column ;
-    text-decoration: none;
-    text-align: left;
-    gap: 10px;
-  }
-  
-  .footer-social{
-    display: inline;
-    text-align: left;
-    width: 32px;
-    height: 32px;
-    line-height: 34px;
-    font-size: 18px;
-    text-decoration: none;
-    color: #004A99;
-    transition: all 0.5s ease 0s;
-  }
-  
-  .footer-social i{
-    display: inline-block;
-    margin-right: 15px;
-    padding: 0;
-  }
-  
-  .email-input{
-    padding: 18px;
-    border: 0;
-    font-family: "Lato", sans-serif;
-    font-size: 14px;
-  }
-  
-  .footer-email-input{
-    font-family: "Lato", sans-serif;
-    font-size: 14px;
-    color: #545454;
-    font-weight: 400;
-  }
-  
-  .banner-background{
-    background-color: #DCEDFE;
-    height: auto;
-    text-align: center;
-    display: flex;
-    justify-content: center;
-  }
-  
-  .banner-title{
-    margin: 90px 400px 235px;
-    font-family: "Montserrat", sans-serif;
-    font-weight: bold;
-    font-size: 40px;
-  }
-  
-  
-  .form-container{
-    height: fit-content;
-    width: fit-content;
-    background-color: #f0f0f0;
-    margin: 0px 150px;
-    display: inline-block;
-    margin-top: -150px;
-  }
-  
-  .appointment-input{
-    width: 100%;
-    padding: 12px 34px;
-    border: 1px #DCDCDC;
-    border-radius: 0;
-    color: #545454;
-  }
-  
-  .appointment-button{
-    background-color: #0152A8;
-    color: white;
-    font-family: "Inter",sans-serif;
-    font-weight:500;
-    font-size: 16px;
-    border: 0;
-    padding: 17px;
-    margin-top: 37px;
-    margin-bottom: 40px;
-  }
-  
-  .contact-container{
-    height: fit-content;
-    width: fit-content;
-    background-color: #f0f0f0;
-    margin: 0px 80px;
-    display: inline-block;
-    margin-top: -150px;
+#blue-type{
+background-color: #0097B2;
+letter-spacing: 8px;
+padding: 1px 10px;
+font-size: 16px;
+width: fit-content;
+color: white;
+margin-bottom: 14px;
+}
+
+.btn-secondary{
+background-color: #0152A8;
+color: #ffffff;
+border-style: none;
+border-radius: 0px;
+padding: 17px 41px;
+width: fit-content;
+}
+
+#top-text{
+font-size: 14px;
+color: white;
+}
+
+#top-bar{
+background-color: #0152A8;
+}
+
+h4{
+font-family: "Montserrat", sans-serif;
+font-size: 30px;
+font-weight: 600;
+margin-bottom: 25px;
+}
+
+h5{
+font-family: "Montserrat", sans-serif;
+font-size: 24px;
+font-weight: 600;
+}
+
+h6{
+font-family: "Montserrat", sans-serif;
+font-size: 18px;
+font-weight: 600;
+}
+
+.box-text{
+font-family: "lato", sans-serif;
+letter-spacing: 6px;
+border: solid #CECECE;
+border-width: 0.5px;
+padding: 0px 18px;
+width: max-content;
+margin-bottom: 20px;
+}
+
+.Read-more-btn{
+font-weight: 500;
+background-color: transparent;
+border: 0px;
+font-size: 16px;
+padding: 0px;
+}
+
+.card-service {
+border: none;
+border-radius: 10px;
+padding: 20px 30px;
+background-color: #f1f1f1;
+border-radius: 0px;
+}
+
+.bg-grey{
+background-color: #f1f1f1;
+}
+
+.icon-image{
+width: 36px;
+height: 36px;
+margin-bottom: 18px;
+}
+
+.card-title{
+font-family: "Montserrat", sans-serif;
+font-style: normal;
+line-height: 114%;
+font-size: 20px;
+font-weight: 600;
+color: #1C1C1C;
+margin-bottom: 10px;
+}
+
+.card-text{
+font-family: "lato", sans-serif;
+font-size: 16px;
+color: #545454;
+line-height: 140%;
+margin-bottom: 11px;
+}
+
+/* Client Review Section */
+#testimonials{
+display: flex;
+justify-content: center;
+align-items: center;
+flex-direction: column;
+width:100%;
+padding: 30px 60px;
+}
+
+.testimonial-box-container{
+display: flex;
+justify-content: center;
+align-items: center;
+flex-wrap: no-wrap;
+width:100%;
+}
+.testimonial-box{
+width:500px;
+box-shadow: 2px 2px 10px rgba(0,0,0,0.1);
+background-color: #ffffff;
+padding: 20px;
+margin: 15px;
+cursor: pointer;
+}
+.profile-img{
+width:50px;
+height: 50px;
+border-radius: 50%;
+overflow: hidden;
+margin-right: 10px;
+}
+.profile-img img{
+width: 100%;
+height: 100%;
+object-fit: cover;
+object-position: center;
+}
+.profile{
+display: flex;
+align-items: center;
+}
+.name-user{
+display: flex;
+flex-direction: column;
+}
+.name-user strong{
+color: #1C1C1C;
+font-family: "Montserrat", sans-serif;
+font-size: 20px;
+font-weight: 600;
+line-height: 114%;
+}
+.name-user span{
+color: #979797;
+font-size: 0.8rem;
+}
+
+.reviews{
+color: #f9d71c;
+}
+
+.box-top{
+display: flex;
+justify-content: space-between;
+align-items: center;
+margin-bottom: 20px;
+}
+.client-comment p{
+font-family: "Lato", sans-serif;
+font-size: 16px;
+font-weight: 400;
+line-height: 142%;
+color: #545454;
+}
+.testimonial-box:hover{
+transform: translateY(-10px);
+transition: all ease 0.3s;
+}
+
+/* Team */
+.team-container {
+background: #0152A8;
+padding: 120px;
+width: 100%vw;
+margin-top: 90px;
+}
+
+.our-team {
+padding: 16px;
+background: #fff;
+border-radius: 8px;
+text-align: center;
+box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+}
+.our-team .pic {
+display: inline-block;
+width: 100%;
+height: 200px;
+background: #fff;
+padding: 12px;
+margin-bottom: 20px;
+overflow: hidden;
+object-fit:fill;
+object-position:top
+}
+.pic img {
+width: 100%;
+height: auto;
+
+}
+.our-team .Name {
+display: block;
+font-size: 20px;
+font-weight: 600;
+color: #303030;
+margin: 0 0 5px 0;
+}
+.our-team .post {
+display: block;
+font-size: 16px;
+color: #303030;
+margin-bottom: 22px;
+}
+.our-team .social{
+padding: 0;
+margin: 0;
+list-style: none;
+}
+.our-team .social .social-list{
+display: inline-block;
+margin-right: 15px;
+padding: 0;
+}
+.social-list .fa {
+display: block;
+width: 32px;
+height: 32px;
+line-height: 34px;
+border-radius: 50%;
+font-size: 18px;
+text-decoration: none;
+color: #004A99;
+border: 1px solid #004A99;
+transition: all 0.5s ease 0s;
+}
+
+.social .social-list .fa:hover {
+background-color: #025784 !important;
+color: white;
+border: none;
+text-decoration: none;
+}
+
+/* Contact Us */
+.contact-page-wrapper {
+  min-height: 100vh;
+  background-color: #f9f9f9;
+  justify-content: center;
+  display: inline-block;
+}
+
+.contact-plain-banner {
+  text-align: center;
+  display: flex;
+
+}
+
+/* Contact Container */
+
+.contact-container{
+  height: fit-content;
+  width: fit-content;
+  background-color: #f0f0f0;
+  margin: -150px 150px 0px;
+  padding: 40px 80px;
+
   }
   
   .contact-options{
-    border: solid 2px #e1e1e1;
-    background-color: white;
-    text-align: center;
-    padding: 40px;
-    margin-bottom: 40px;
-    width: fit-content;
+  border: solid 2px #e1e1e1;
+  background-color: white;
+  text-align: center;
+  padding: 40px;
+  margin: 10px;
+  width: 30%;
   }
   
   .contact-option-text{
-    font-family: "Lato", sans-serif;
-    font-size: 16px;
-    line-height: 142%;
+  font-family: "Lato", sans-serif;
+  font-size: 16px;
+  line-height: 142%;
   }
   
   .contact-form-container{
-    height: fit-content;
-    width: fit-content;
-    background-color: #DCEDFE;
-    margin: 70px 150px 0px;
-    display: inline-block;
-    padding: 50px 80px;
+  height: fit-content;
+  width: fit-content;
+  background-color: #DCEDFE;
+  margin: 70px 150px 0px !important;
+  display: inline-block;
+  padding: 50px 80px;
   }
   
   .contact-input{
-    width: 100%;
-    padding: 12px 34px;
-    border: 1px #DCDCDC;
-    border-radius: 0;
-    color: #545454;
-    font-size: 16px;
+  width: 100%;
+  padding: 12px 10px;
+  border: 1px #DCDCDC;
+  border-radius: 0;
+  color: #545454;
+  font-size: 16px;
   }
   
   .contact-button{
-    background-color: #0152A8;
-    color: white;
-    font-family: "Inter",sans-serif;
-    font-weight:500;
-    font-size: 16px;
-    border: 0;
-    padding: 17px;
-    margin: 60px auto;
-    width: fit-content;
+  background-color: #0152A8;
+  color: white;
+  font-family: "Inter",sans-serif;
+  font-weight:500;
+  font-size: 16px;
+  border: 0;
+  padding: 17px;
+  margin: 60px auto;
+  width: fit-content;
   }
-  
-  /* FAQ */
-  .accordion-button{
-    font-family: "Montserrat", sans-serif;
-    font-size: 18px;
-    font-weight: 600;
-    color: #1C1C1C; 
-  }
-  
-  
+
+.footer-logo{
+width: 300px;
+}
+
+.footer-wrapper{
+margin: 120px auto 0;
+display: flex;
+}
+
+.footer-container{
+margin: 0 auto 40px;
+background: url('/static/images/Footer-Background.png') no-repeat;
+background-size: cover;
+background-position: center;
+width: 90%;
+align-items: center;
+justify-content:space-around;
+display: flex;
+padding: 40px 80px;
+}
+
+.footer-list a{
+color: #545454;
+text-align: left;
+text-decoration: none;
+padding: 0;
+font-family: "Lato", sans-serif;
+font-size: 18px;
+font-weight: 500;
+}
+
+.footer-list{
+display: flex;
+flex-direction: column ;
+text-decoration: none;
+text-align: left;
+gap: 10px;
+}
+
+.email-input{
+padding: 18px;
+border: 0;
+font-family: "Lato", sans-serif;
+font-size: 14px;
+}
+
+.footer-email-input{
+font-family: "Lato", sans-serif;
+font-size: 14px;
+color: #545454;
+font-weight: 400;
+}
+
+.banner-background{
+background-color: #DCEDFE;
+height: auto;
+text-align: center;
+display: flex;
+justify-content: center;
+}
+
+.banner-title{
+margin: 60px 400px 200px;
+font-family: "Montserrat", sans-serif;
+font-weight: bold;
+font-size: 40px;
+}
+
+
+.form-container{
+height: fit-content;
+width: fit-content;
+background-color: #f0f0f0;
+margin: 0px 150px;
+display: inline-block;
+margin-top: -150px;
+}
+
+.appointment-input{
+width: 100%;
+padding: 12px 34px;
+border: 1px #DCDCDC;
+border-radius: 0;
+color: #545454;
+}
+
+.appointment-button{
+background-color: #0152A8;
+color: white;
+font-family: "Inter",sans-serif;
+font-weight:500;
+font-size: 16px;
+border: 0;
+padding: 17px;
+margin-top: 37px;
+margin-bottom: 40px;
+}
+
+.apt-card-header{
+font-size: 35px;
+font-weight: 600;
+margin-bottom: 20px;
+}
+
+.apt-p-card-header{
+  background-color: #0097B2 ;
+}
+
+.apt-p-card-body i{
+  color: #0097B2;
+}
+.appointment-table-count td:nth-child(1){
+  width: 40%;
+}
+
+.appointment-table-count td:nth-child(2){
+  width: 20%;
+}
+
+/* FAQ */
+.accordion-button{
+font-family: "Montserrat", sans-serif;
+font-size: 18px;
+font-weight: 600;
+color: #1C1C1C; 
+}
+
+@media screen and (max-width: 1400px){
+.service-box{
+  height: 200px;
+}
+
+.service-img{
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+  object-position: center;
+}
+
+
+.footer-logo{
+  width: 220px;
+}
+
+.footer-wrapper{
+  margin: 120px auto 0;
+  display: flex;
+}
+
+.footer-container{
+  margin: 0 auto 40px;
+  background: url('/static/images/Footer-Background.png') no-repeat;
+  background-size: cover;
+  background-position: center;
+  width: 90%;
+  align-items: center;
+  justify-content:space-around;
+  display: flex;
+  padding: 20px 50px;
+}
+
+
+.footer-list a{
+  color: #545454;
+  text-align: left;
+  text-decoration: none;
+  padding: 0;
+  font-family: "Lato", sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.tag-line{
+  font-size: 22px;
+}
+}

@@ -17,14 +17,14 @@
   </div>
   </div>
   
-  <div class="container py-4" style="margin: auto">
+  <div class="container py-4">
     <div class="row justify-content">
     {% for doctor in doctors %}
     <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
       <a href="{% url 'doctor_profile' doctor.id %}" class="nav-link text-decoration-none">
         <div class="our-team shadow-sm rounded" >
           <div class="pic ">
-            <img src="{{ doctor.doctor_profile.profile_picture.url }}" alt="Dr. {{ doctor.first_name }} {{ doctor.last_name }}" class="object-fit-cover">
+            <img src="{{ doctor.doctor_profile.profile_picture.url }}" alt="Dr. {{ doctor.first_name }} {{ doctor.last_name }}" >
           </div>
           <div class="row">
             <h3 class="Name text-start ps-4">Dr. {{ doctor.first_name }} {{ doctor.last_name }}</h3>

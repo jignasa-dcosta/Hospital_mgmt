@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}
+Mangalya
+{% endblock title %}
+
+{% block content %}
+
+    <div class="contact-plain-banner">
+      <div class="banner-background text-center w-100">
+        <h5 class="banner-title">We Are Ready To Assist You 24X7</h5>
+      </div>
+    </div>
+  
+    <!-- Start options -->
+    <div class="contact-page-wrapper">
+    <section class="contact">
+    <div class="contact-container">
+      <div class="row justify-content-evenly">
+        <div class="col-lg-10 text-center ">
+          <div class="box-text ms-auto me-auto" style="font-size: 14px;">APPOINTMENT</div>
+          <h4 style="margin-bottom: 25px;">Consult with Our Experts</h4>
+        </div>
+      </div>
+  
+      <div class="row justify-content-center">
+        <div class="contact-options"  >
+          <img src="" alt="">
+          <h6 class="contact-option-title">Address</h6>
+          <p class="contact-option-text">209 North Dunbar St. Santa Monica, CA 90403</p>
+        </div>
+        <div class=" contact-options">
+          <img src="" alt="">
+          <h6 class="contact-option-title">Address</h6>
+          <p class="contact-option-text">209 North Dunbar St. Santa Monica, CA 90403</p>
+        </div>
+        <div class=" contact-options">
+          <img src="" alt="">
+          <h6 class="contact-option-title">Address</h6>
+          <p class="contact-option-text">209 North Dunbar St. Santa Monica, CA 90403</p>
+        </div>
+      </div>
+    </div>
+</section>
+  
+    <!-- Start contact form -->
+    <div class="contact-form-container">
+      <form class="row g-3 justify-content-center">
+        <div class="col-lg-6 text-start">
+          <label for="Name" class="form-label">Email*</label>
+          <input type="text" class="contact-input" id="" placeholder="Enter your name" required>
+        </div>
+        <div class="col-lg-6 text-start">
+          <label for="Email" class="form-label">Password*</label>
+          <input type="password" class="contact-input" id="" placeholder="Enter your email" required>
+        </div>
+        <div class="col-lg-6 text-start">
+          <label for="Phone" class="form-label">Phone*</label>
+          <input type="tel" class="contact-input" id="inputAddress" placeholder="Enter your number" required>
+        </div>
+        <div class="col-lg-6 text-start">
+          <label for="Subject" class="form-label">Subject*</label>
+          <select name="" id="" class="form-select contact-input" required>
+            <option selected>Select your Concern</option>
+          </select>
+        </div>
+        <div class="col-lg-12 text-start">
+          <label for="message" class="form-label">How Can We Help You?</label>
+          <textarea class="contact-input" placeholder="Write your message here" style="height: 200px; resize: vertical;"></textarea>
+        </div>
+        
+          <button type="submit" class="contact-button">Send Message</button>
+
+      </form>
+    </div>
+  </div>
+  
+  
+
+{% endblock content%}
