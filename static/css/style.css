@@ -22,8 +22,6 @@ background-color:#f7fcff;
   color: #ffffff;
   border-style: none;
   border-radius: 0px;
-  padding: 8px 20px;
-  width: fit-content;
 }
 
 .btn-primary-sm:hover{
@@ -36,8 +34,6 @@ background-color:#f7fcff;
   color: #ffffff;
   border-style: none;
   border-radius: 0px;
-  padding: 8px 20px;
-  width: fit-content;
 }
 
 .cancel-button:hover{
@@ -520,6 +516,7 @@ margin-bottom: 20px;
 .appointment-table-count td:nth-child(2){
   width: 20%;
 }
+
 
 /* FAQ */
 .accordion-button{

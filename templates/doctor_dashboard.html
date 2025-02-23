@@ -6,18 +6,18 @@
 
 {% block content %}
 <div class="container">
-        <!-- Page Header -->
-        <div class="text-center mb-4 mt-5">
-            <h4 class="page-header">Scheduled Appointments</h4>
-        </div>
+    <!-- Page Header -->
+    <div class="text-center mb-4 mt-5">
+        <h4 class="page-header">Scheduled Appointments</h4>
+    </div>
 
     <!-- Display Appointment Counts -->
     <div class="mb-4">
-        <table class="table table-bordered table-sm appointment-table-count" style="width: 30%;">
+        <table class="table table-bordered table-sm appointment-table-count" id="appointmentsTable" style="width: 30%;">
             <tbody>
                 <tr>
                     <td class="text-start" style="font-weight: 400;">Scheduled Today</td>
-                    <td class="text-center" style="font-size: 1.2rem; color: #0097B2">{{ scheduled_count }}</td>
+                    <td class="text-center" style="font-size: 1.2rem; color: #0097B2;">{{ scheduled_count }}</td>
                 </tr>
                 <tr>
                     <td class="text-start" style="font-weight: 400;">Cancelled Today</td>
@@ -27,50 +27,68 @@
         </table>
     </div>
 
-
-        <!-- Appointments Table -->
-                <!-- <div class="table-responsive mb-4 mt-2"> -->
-                    <table class="table table-responsive align-middle">
-                        <thead class="table-brand py-3">
-                            <tr>
-                                <th class="ps-3 py-3 fs-6" style="color: #0097B2;">Appointment Date</th>
-                                <th class="ps-3 py-3 fs-6" style="color: #0097B2;">Patient Name</th>
-                                <th class="ps-3 py-3 fs-6" style="color: #0097B2;">Email</th>
-                                <th class="ps-3 py-3 fs-6" style="color: #0097B2;">Phone</th>
-                                <th class="ps-3 py-3 fs-6" style="color: #0097B2;">Time</th>
-                                <th class="ps-3 py-3 fs-6" style="color: #0097B2;">Status</th>
-                                <th class="ps-3 py-3 fs-6" style="color: #0097B2;">Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        {% for appointment in appointments %}
-                            <tr>
-                                <td class="py-3 fs-6 mt-3">{{ appointment.date }}</td>
-                                <td class="py-3 fs-6 mt-3">{{ appointment.patient.first_name }} {{ appointment.patient.last_name }}</td>
-                                <td class="py-3 fs-6 mt-3">{{ appointment.patient.email }}</td>
-                                <td class="py-3 fs-6 mt-3">{{ appointment.patient.patient_profile.contact_number }}</td>
-                                <td class="py-3 fs-6 mt-3">{{ appointment.status }}</td>
-                                <td class="py-3 fs-6 mt-3">{{ appointment.time }}</td>
-                                
-                                <td class="p-3 fs-6">
-                                    {% if appointment.status == 'Scheduled' %}
-                                    <a href="{% url 'cancel_appointment' appointment.id %}" class="btn btn-sm cancel-button">Cancel</a>
-                                    {% endif %}
-                                    <!-- <a href="#" class="btn btn-sm btn-warning mt-2">Reschedule</a> -->
-                                    <a href="{% url 'doctor_appointment_detail' appointment.id  %}" class="btn btn-sm btn-primary-sm">View Details</a>
-                                </td>
-                            </tr>
-                            {% empty %}
-                            <tr>
-                                <td colspan="6" class="text-center">No appointments found.</td>
-                            </tr>
+    <form method="GET" action="{% url 'doctor_dashboard' %}">
+        <table class="table table-responsive align-middle">
+            <thead class="table-brand py-3">
+                <tr>
+                    <th class="py-3" style="font-size: 16px; color: #0097B2;">
+                        Appointment Date
+                        <input type="date" name="date" class="form-control form-control-sm" value="{{ request.GET.date }}" onchange="this.form.submit()">
+                    </th>
+                    <th class="py-3" style="font-size: 16px; color: #0097B2;">
+                        Patient Name
+                        <input type="text" name="patient_name" class="form-control form-control-sm" placeholder="Search Name" value="{{ request.GET.patient_name }}" onchange="this.form.submit()">
+                    </th>
+                    <th class="py-3" style="font-size: 16px; color: #0097B2;">
+                        Contact
+                        <input type="text" name="contact" class="form-control form-control-sm" placeholder="Search Contact" value="{{ request.GET.contact }}" onchange="this.form.submit()">
+                    </th>
+                    <th class="py-3" style="font-size: 16px; color: #0097B2;">
+                        Time
+                        <select name="time" class="form-control form-control-sm" onchange="this.form.submit()">
+                            <option value="" style="font-size: 14px;">All</option>
+                            {% for time in unique_times %}
+                                <option value="{{ time }}" {% if request.GET.time == time %}selected{% endif %} style="font-size: 14px;">{{ time }}</option>
                             {% endfor %}
-                            <!-- Add more rows as needed -->
-                        </tbody>
-                    </table>
-                </div>
-        </div>
-    </div>
-            
+                        </select>
+                    </th>
+                    <th class="py-3" style="font-size: 16px; color: #0097B2;">
+                        Status
+                        <select name="status" class="form-control form-control-sm" onchange="this.form.submit()">
+                            <option value="" style="font-size: 14px;">All</option>
+                            <option value="Scheduled" {% if request.GET.status == "Scheduled" %}selected{% endif %} style="font-size: 14px;">Scheduled</option>
+                            <option value="Cancelled" {% if request.GET.status == "Cancelled" %}selected{% endif %} style="font-size: 14px;">Cancelled</option>
+                        </select>
+                    </th>
+                    <th class="py-3" style="font-size: 16px; color: #0097B2;">
+                        Action
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for appointment in appointments %}
+                <tr>
+                    <td style="font-size: 15px;">{{ appointment.date }}</td>
+                    <td style="font-size: 15px;">{{ appointment.patient.first_name }} {{ appointment.patient.last_name }}</td>
+                    <td style="font-size: 15px;">{{ appointment.patient.patient_profile.contact_number }}</td>
+                    <td style="font-size: 15px;">{{ appointment.time }}</td>
+                    <td style="font-size: 15px;">{{ appointment.status }}</td>
+                    <td style="display: flex; gap: 5px;">
+                        {% if appointment.status == 'Scheduled' %}
+                        <a href="{% url 'cancel_appointment' appointment.id %}" class="btn btn-sm cancel-button p-auto" style="font-size: 15px;">Cancel</a>
+                        {% endif %}
+                        <a href="{% url 'doctor_appointment_detail' appointment.id %}" class="btn btn-sm btn-primary-sm" style="font-size: 15px;">View</a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="6" class="text-center">No appointments found.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </form>
+</div>    
+
 
 {% endblock content %}

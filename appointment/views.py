@@ -5,8 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .forms import PatientSignUpForm, DoctorSignUpForm,SigninForm,AppointmentForm,AppointmentDetailForm,DepartmentFilterForm
 from .models import CustomUser,DoctorProfile,PatientProfile,Appointment,Department,AppointmentDetail
-from django.contrib.auth.forms import AuthenticationForm
-from django.core.exceptions import PermissionDenied
+from datetime import date
 
 
 def index(request):
@@ -101,22 +100,90 @@ def signin(request):
 
 @login_required
 def patient_dashboard(request):
+    today = date.today()
+
+    # Get patient's appointments
     appointments = Appointment.objects.filter(patient=request.user)
-    return render(request, 'patient_dashboard.html', {'appointments': appointments})
+
+    # Get unique filter values
+    unique_doctors = appointments.values_list('doctor__first_name', 'doctor__last_name', flat=False).distinct()
+    unique_departments = appointments.values_list('doctor__doctor_profile__department__name', flat=True).distinct()
+    unique_times = appointments.values_list('time', flat=True).distinct()
+
+    # Get selected filter values
+    selected_date = request.GET.get('date', '')
+    selected_doctor = request.GET.get('doctor', '')
+    selected_department = request.GET.get('department', '')
+    selected_time = request.GET.get('time', '')
+    selected_status = request.GET.get('status', '')
+
+    # Apply filters
+    if selected_date:
+        appointments = appointments.filter(date=selected_date)
+
+    if selected_doctor:
+        first_name, last_name = selected_doctor.split()
+        appointments = appointments.filter(doctor__first_name=first_name, doctor__last_name=last_name)
+
+    if selected_department:
+        appointments = appointments.filter(doctor__doctor_profile__department__name=selected_department)
+
+    if selected_time:
+        appointments = appointments.filter(time=selected_time)
+
+    if selected_status:
+        appointments = appointments.filter(status=selected_status)
+
+    return render(request, 'patient_dashboard.html', {
+        'appointments': appointments,
+        'unique_doctors': unique_doctors,
+        'unique_departments': unique_departments,
+        'unique_times': unique_times,
+    })
 
 @login_required
 def doctor_dashboard(request):
-    # Get today's date
     today = date.today()
 
-    # Get the counts for scheduled and cancelled appointments today
+    # Get counts for scheduled and cancelled appointments
     scheduled_count = Appointment.objects.filter(date=today, status='Scheduled').count()
     cancelled_count = Appointment.objects.filter(date=today, status='Cancelled').count()
+
+    # Get unique time values for dropdown
+    unique_times = Appointment.objects.values_list('time', flat=True).distinct()
+
+    # Get filter values from request
+    selected_date = request.GET.get('date', '')
+    selected_patient = request.GET.get('patient_name', '')
+    selected_contact = request.GET.get('contact', '')
+    selected_time = request.GET.get('time', '')
+    selected_status = request.GET.get('status', '')
+
+    # Filter appointments based on user selection
     appointments = Appointment.objects.filter(doctor=request.user)
+
+    if selected_date:
+        appointments = appointments.filter(date=selected_date)
+
+    if selected_patient:
+        appointments = appointments.filter(
+            patient__first_name__icontains=selected_patient
+        ) | appointments.filter(patient__last_name__icontains=selected_patient)
+
+    if selected_contact:
+        appointments = appointments.filter(patient__patient_profile__contact_number__icontains=selected_contact)
+
+    if selected_time:
+        appointments = appointments.filter(time=selected_time)
+
+    if selected_status:
+        appointments = appointments.filter(status=selected_status)
+
     return render(request, 'doctor_dashboard.html', {
         'appointments': appointments,
         'scheduled_count': scheduled_count,
         'cancelled_count': cancelled_count,
+        'unique_times': unique_times,  # Send unique time values to the template
     })
 
 

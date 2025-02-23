@@ -48,16 +48,17 @@ signin
         </div>
 
         <button type="submit" class="btn btn-primary w-100">Sign In</button>
+        <p style="font-size: 18px; margin-top: 10px; color: #4e4e4e">Forgot Passwords?<span><a href="" style="text-decoration: none; color: #0097B2; margin-left: 5px;">Click here</a></span></p>
     </div>
 </form>
 
-{% if messages %}
+{% comment %} {% if messages %}
         <ul>
             {% for message in messages %}
                 <li>{{ message }}</li>
             {% endfor %}
         </ul>
-    {% endif %}
+    {% endif %} {% endcomment %}
 
 {% endblock content %} 
 

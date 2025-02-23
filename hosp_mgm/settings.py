@@ -38,7 +38,13 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'appointment',
+    'django_extensions',
 ]
+
+GRAPH_MODELS ={
+'all_applications': True,
+'graph_models': True,
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
