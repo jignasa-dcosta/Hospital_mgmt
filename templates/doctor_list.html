@@ -24,7 +24,13 @@
       <a href="{% url 'doctor_profile' doctor.id %}" class="nav-link text-decoration-none">
         <div class="our-team shadow-sm rounded" >
           <div class="pic ">
-            <img src="{{ doctor.doctor_profile.profile_picture.url }}" alt="Dr. {{ doctor.first_name }} {{ doctor.last_name }}" >
+            {% if doctor.doctor_profile.profile_picture_url %}
+            <img src="{{ doctor.doctor_profile.profile_picture_url }}" alt="Dr. {{ doctor.first_name }} {{ doctor.last_name }}">
+            {% elif doctor.doctor_profile.profile_picture %}
+            <img src="{{ doctor.doctor_profile.profile_picture.url }}" alt="Dr. {{ doctor.first_name }} {{ doctor.last_name }}">
+            {% else %}
+            <img src="{% static 'images/default-profile.jpg' %}" alt="No Image">
+            {% endif %}
           </div>
           <div class="row">
             <h3 class="Name text-start ps-4">Dr. {{ doctor.first_name }} {{ doctor.last_name }}</h3>

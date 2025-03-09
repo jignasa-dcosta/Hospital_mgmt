@@ -91,6 +91,7 @@ class DoctorProfile(models.Model):
     department = models.ForeignKey(Department, on_delete=models.CASCADE, related_name='departemnt')    
     fees = models.DecimalField(max_digits=10, decimal_places=2)
     profile_picture = models.ImageField(upload_to='doctor_profiles/', blank=True, null=True)
+    profile_picture_url = models.URLField(max_length=500, blank=True, null=True)
     description = models.TextField(default="No description available.")  # Add description field
 
     def __str__(self):
