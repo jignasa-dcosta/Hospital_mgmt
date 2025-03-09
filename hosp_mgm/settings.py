@@ -134,6 +134,13 @@ STATIC_ROOT =os.path.join(BASE_DIR, 'static_cdn')
 MEDIA_URL = 'media/'
 MEDIA_ROOT = os.path.join(BASE_DIR,'media')
 
+# Use WhiteNoise to serve media files in production
+if not DEBUG:
+    import mimetypes
+    mimetypes.add_type("image/png", ".png", True)
+    mimetypes.add_type("image/jpeg", ".jpg", True)
+    mimetypes.add_type("image/svg+xml", ".svg", True)
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
