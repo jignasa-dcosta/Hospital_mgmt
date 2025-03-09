@@ -154,9 +154,9 @@ import cloudinary.uploader
 import cloudinary.api
 
 CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': 'your_cloud_name',
-    'API_KEY': 'your_api_key',
-    'API_SECRET': 'your_api_secret',
+    'CLOUD_NAME': os.getenv('dtnlavpuw'),
+    'API_KEY': os.getenv('897457776385225'),
+    'API_SECRET': os.getenv('R2dvEXwPl8tMw7ZHZPT0Flv7qzc'),
 }
 
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
