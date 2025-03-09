@@ -1,0 +1,1 @@
+web: gunicorn hosp_mgm.wsgi --log-file -
